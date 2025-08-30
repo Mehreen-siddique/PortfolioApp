@@ -195,16 +195,16 @@ class _HomeScreenState extends State<HomeScreen> {
           
               ]
                   ),
-              SizedBox(height: 20,),
+              SizedBox(height: 25),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
                       Expanded(
                         child: Container(
-                          height: 70,
+                          height: 80,
                           decoration:BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -224,80 +224,96 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
                           ) ,
-                          child: IconButton(
-                            icon: FaIcon(FontAwesomeIcons.github,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              // launchUrl(Uri.parse("https://github.com/yourusername"));
-                            },
+                          child: Column(
+                            children: [
+                              SizedBox(height: 10,),
+                              Text("15 +", style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),),
+                              Text("Projects", style: TextStyle(
+                                fontSize: 14,
+                              ),),
+                              SizedBox(height: 10,),
+                            ],
+                          )
                           ),
                         ),
-                      ),
-                      SizedBox(width: 20,),
+
+                      SizedBox(width: 15,),
                       Expanded(
                         child: Container(
-                          height: 70,
-                          decoration:BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade400,
-                                blurRadius: 3,
-                                offset: Offset(0, 0),
+                            height: 80,
+                            decoration:BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade400,
+                                  blurRadius: 3,
+                                  offset: Offset(0, 0),
+                                ),
+
+                              ],
+                              border: Border.all(
+                                color: Colors.grey.shade400, // Border color
+                                width: 1,           // Border thickness
                               ),
 
-                            ],
-                            border: Border.all(
-                              color: Colors.grey.shade400, // Border color
-                              width: 1,           // Border thickness
-                            ),
 
 
-
-                          ) ,
-                          child: IconButton(
-                            icon: FaIcon(FontAwesomeIcons.github,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              // launchUrl(Uri.parse("https://github.com/yourusername"));
-                            },
-                          ),
+                            ) ,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 10,),
+                                Text("6 months", style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),),
+                                Text("Learning", style: TextStyle(
+                                  fontSize: 14,
+                                ),),
+                                SizedBox(height: 10,),
+                              ],
+                            )
                         ),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 15,),
                       Expanded(
                         child: Container(
-                          height: 70,
-                          decoration:BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade400,
-                                blurRadius: 3,
-                                offset: Offset(0, 0),
+                            height: 80,
+                            decoration:BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade400,
+                                  blurRadius: 3,
+                                  offset: Offset(0, 0),
+                                ),
+
+                              ],
+                              border: Border.all(
+                                color: Colors.grey.shade400, // Border color
+                                width: 1,           // Border thickness
                               ),
 
-                            ],
-                            border: Border.all(
-                              color: Colors.grey.shade400, // Border color
-                              width: 1,           // Border thickness
-                            ),
 
 
-
-                          ) ,
-                          child: IconButton(
-                            icon: FaIcon(FontAwesomeIcons.github,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              // launchUrl(Uri.parse("https://github.com/yourusername"));
-                            },
-                          ),
+                            ) ,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 10,),
+                                Text("5 +", style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),),
+                                Text("Skills", style: TextStyle(
+                                  fontSize: 14,
+                                ),),
+                                SizedBox(height: 10,),
+                              ],
+                            )
                         ),
                       ),
 
@@ -309,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Container(
-                  height: 200,
+                  height: 300,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -327,8 +343,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     ]
           
                   ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    children: [
+
+                      SizedBox(height: 10,),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text("About Me", style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),),
+                      ),
+                      SizedBox(height: 5,),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('A motivated Flutter developer eager to transform ideas into beautiful and functional mobile applications. With 6 months of dedicated learning and practice, I have developed several projects that reflect my passion for coding and UI/UX design. Always curious to learn, grow, and adapt to new technologies, I aim to contribute to impactful projects and start my professional journey in the tech industry.',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                    ],
+                  ),
                 ),
-              )
+              ),
+              SizedBox(height: 20,),
           
             ],
           ),
