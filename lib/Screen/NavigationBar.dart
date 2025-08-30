@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolioapp/Screen/ProjectScreen.dart';
+import 'package:portfolioapp/Screen/SkillsScreen.dart';
 import 'package:portfolioapp/Screen/profileScreen.dart';
 
 class Navigationbar extends StatefulWidget {
@@ -37,7 +38,7 @@ class _NavigationbarState extends State<Navigationbar> {
           children:[
           HomeScreen(),
             Projectscreen(),
-          // SkillScreen(),
+            Skillsscreen(),
           // ContactScreen(),
         ]
       ),
