@@ -1,47 +1,70 @@
 import 'package:flutter/material.dart';
-import 'Screen/NavigationBar.dart';
+import 'package:portfolioapp/Screen/navigationbar.dart';
 
 void main() {
-  runApp(MainScreen());
+  runApp(MyApp());
 }
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
+class MyApp extends StatefulWidget {
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  ThemeMode _themeMode = ThemeMode.light; // default light
+class _MyAppState extends State<MyApp> {
+  bool isDark = false;
 
   void toggleTheme() {
     setState(() {
-      _themeMode =
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      isDark = !isDark;
     });
   }
 
+  /// 🎨 Light Theme
+  final ThemeData _lightTheme = ThemeData(
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.white,
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(color: Colors.black),
+      bodyMedium: TextStyle(color: Colors.black87),
+    ),
+    iconTheme: const IconThemeData(color: Colors.black),
+    dividerColor: Colors.grey.shade400,
+  );
+
+
+
+
+  /// 🌙 Dark Theme
+  final ThemeData _darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: Colors.black,
+    cardColor: const Color(0xFF1E1E1E),
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(color: Colors.white),
+      bodyMedium: TextStyle(color: Colors.white70),
+    ),
+    iconTheme: const IconThemeData(color: Colors.white),
+    dividerColor: Colors.white70,
+  );
+
+
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      // Light and Dark Themes
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.black,
-        scaffoldBackgroundColor: Colors.black,
-      ),
-      themeMode: _themeMode, // 👈 yahan se control ho raha hai
-
-      home: Navigationbar(
-        onToggleTheme: toggleTheme, // pass toggle function
+    return AnimatedTheme(
+      data: isDark ? _darkTheme : _lightTheme,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: _lightTheme,
+        darkTheme: _darkTheme,
+        themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+        home: Navigationbar(
+          onToggleTheme: toggleTheme,
+        ),
       ),
     );
   }
