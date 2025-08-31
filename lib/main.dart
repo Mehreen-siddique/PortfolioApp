@@ -28,6 +28,20 @@ class _MyAppState extends State<MyApp> {
       bodyLarge: TextStyle(color: Colors.black),
       bodyMedium: TextStyle(color: Colors.black87),
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.grey,
+    ),
+    tabBarTheme: TabBarTheme(
+      labelColor: Colors.black,
+      unselectedLabelColor: Colors.grey,
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: Colors.black, width: 2),
+        insets: EdgeInsets.symmetric(horizontal: 16),
+      ),
+    ),
+
     iconTheme: const IconThemeData(color: Colors.black),
     dividerColor: Colors.grey.shade400,
   );
@@ -43,6 +57,19 @@ class _MyAppState extends State<MyApp> {
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.white),
       bodyMedium: TextStyle(color: Colors.white70),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.black,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.grey,
+    ),
+    tabBarTheme: TabBarTheme(
+      labelColor: Colors.white,
+      unselectedLabelColor: Colors.grey,
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: Colors.white, width: 2),
+        insets: EdgeInsets.symmetric(horizontal: 16),
+      ),
     ),
     iconTheme: const IconThemeData(color: Colors.white),
     dividerColor: Colors.white70,

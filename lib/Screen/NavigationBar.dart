@@ -17,6 +17,7 @@ class _NavigationbarState extends State<Navigationbar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -30,22 +31,27 @@ class _NavigationbarState extends State<Navigationbar> {
       ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.bottomNavigationBarTheme.backgroundColor ??
+                theme.scaffoldBackgroundColor,
             border: Border(
               top: BorderSide(
-                color: Colors.grey,
+                color: theme.dividerColor,
                 width: 0.3,
-              )
-            )
+              ),
+            ),
 
           ),
       child: TabBar(
-        indicatorColor: Colors.black,
+        indicatorColor: theme.bottomNavigationBarTheme.selectedItemColor ??
+            theme.secondaryHeaderColor,
         indicatorWeight: 2.5,
-        labelColor: Colors.black,
-        unselectedLabelColor: Colors.grey,
+        labelColor: theme.bottomNavigationBarTheme.selectedItemColor ??
+            theme.primaryColor,
+        unselectedLabelColor:
+        theme.bottomNavigationBarTheme.unselectedItemColor ??
+            theme.unselectedWidgetColor,
         indicatorSize: TabBarIndicatorSize.tab,
-        indicatorPadding: EdgeInsets.only(bottom: 73),
+        indicatorPadding: const EdgeInsets.only(bottom: 73),
 
         tabs: [
         Tab(icon: Icon(Icons.home_outlined), text: "Home"),

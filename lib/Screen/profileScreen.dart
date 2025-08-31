@@ -23,9 +23,16 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: Colors.grey.shade400, // Border color
-              width: 3,           // Border thickness
+              color: Theme.of(context).dividerColor,
+              width: 1,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).shadowColor.withOpacity(0.2),
+                blurRadius: 3,
+                offset: Offset(0, 0),
+              )
+            ],
           ),
           child: CircleAvatar(
             backgroundColor: Colors.grey[300],
@@ -41,13 +48,15 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
             height: 50,
             width: 50,
             decoration:  BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               shape: BoxShape.circle,
             ),
             padding:  EdgeInsets.all(6),
             child:  IconButton(onPressed: (){
 
-            }, icon: Icon(Icons.camera_alt, size: 20)),
+            }, icon: Icon(Icons.camera_alt,
+                color: Theme.of(context).iconTheme.color,
+                size: 20)),
           ),
         ),
       ],
@@ -57,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body:
         SingleChildScrollView(
           child: Column(
@@ -74,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       height: 140,
                       width: 140,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(100)
                       ),
                     )),
@@ -88,16 +98,18 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                           color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(
-                            color: Colors.grey.shade400, // Border color
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade800   // dark mode border
+                                : Colors.grey.shade300,   // Border color
                             width: 1,           // Border thickness
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 1,
-                              offset: Offset(0, 0),
-                            )
-                          ]
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context).shadowColor.withOpacity(0.2),
+                            blurRadius: 3,
+                            offset: Offset(0, 0),
+                          )
+                        ],
                       ),
                       child: GestureDetector(
                         onTap: (){
@@ -115,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                               return ScaleTransition(scale: animation, child: child);
                             },
                           child: Icon(
-                          isDark ? Icons.dark_mode : Icons.light_mode_outlined,
+                          isDark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
                           key: ValueKey<bool>(isDark),
                           color: isDark ? Colors.white : Colors.black,
                           size: 28,
@@ -136,20 +148,15 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
              Column(
                crossAxisAlignment: CrossAxisAlignment.center,
                children: [
-                 Text("Mehreen Siddique", style: TextStyle(
-                   fontSize: 20,
+                 Text("Mehreen Siddique",  style: Theme.of(context).textTheme.titleLarge?.copyWith(
                    fontWeight: FontWeight.bold,
                  ),),
-                 Text("Flutter Developer", style: TextStyle(
-                   fontSize: 15,
-                 ),),
+                 Text("Flutter Developer", style: Theme.of(context).textTheme.bodyLarge,),
                  SizedBox(height: 10),
            Padding(
              padding: const EdgeInsets.only(left: 16, right: 16),
              child: Text('Dedicated to transforming ideas into elegant mobile experiences. Skilled in Flutter development, with an eye for design and a drive for performance.',
-             style: TextStyle(
-               fontSize: 14,
-             ),
+               style: Theme.of(context).textTheme.bodyLarge,
           textAlign: TextAlign.center,
              ),
            )
@@ -164,25 +171,27 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       height: 50,
                       width: 50,
                       decoration:BoxDecoration(
-                          color: Colors.white,
+                        color: Theme.of(context).cardColor,
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey.shade400, // Border color
-                            width: 1,           // Border thickness
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 1,
-                              offset: Offset(0, 0),
-                            )
-                          ]
+                        border: Border.all(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey.shade800   // dark mode border
+                              : Colors.grey.shade300,
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context).shadowColor.withOpacity(0.2),
+                            blurRadius: 3,
+                            offset: Offset(0, 0),
+                          )
+                        ],
 
 
                       ) ,
                       child: IconButton(
                         icon: FaIcon(FontAwesomeIcons.github,
-                          color: Colors.black,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         onPressed: () {
                            launchUrl(Uri.parse("https://github.com/Mehreen-Siddique"));
@@ -194,25 +203,27 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       height: 50,
                       width: 50,
                       decoration:BoxDecoration(
-                          color: Colors.white,
+                        color: Theme.of(context).cardColor,
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.grey.shade400, // Border color
-                            width: 1,           // Border thickness
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade400,
-                              blurRadius: 1,
-                              offset: Offset(0, 0),
-                            )
-                          ]
+                        border: Border.all(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey.shade800   // dark mode border
+                              : Colors.grey.shade300,
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context).shadowColor.withOpacity(0.2),
+                            blurRadius: 3,
+                            offset: Offset(0, 0),
+                          )
+                        ],
 
 
                       ) ,
                       child: IconButton(
                         icon: FaIcon(FontAwesomeIcons.linkedin,
-                          color: Colors.black,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         onPressed: () {
                            launchUrl(Uri.parse("https://www.linkedin.com/in/mehreen-siddique/"));
@@ -235,20 +246,21 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                         child: Container(
                           height: 80,
                           decoration:BoxDecoration(
-                              color: Colors.white,
+                            color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade400,
-                                  blurRadius: 3,
-                                  offset: Offset(0, 0),
-                                ),
-
-                              ],
-                              border: Border.all(
-                                color: Colors.grey.shade400, // Border color
-                                width: 1,           // Border thickness
-                              ),
+                            border: Border.all(
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.grey.shade800   // dark mode border
+                                  : Colors.grey.shade300,
+                              width: 1,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Theme.of(context).shadowColor.withOpacity(0.2),
+                                blurRadius: 3,
+                                offset: Offset(0, 0),
+                              )
+                            ],
 
 
 
@@ -256,10 +268,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                           child: Column(
                             children: [
                               SizedBox(height: 10,),
-                              Text("15 +", style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),),
+                              Text("15 +", style: Theme.of(context).textTheme.bodyLarge,),
                               Text("Projects", style: TextStyle(
                                 fontSize: 14,
                               ),),
@@ -274,34 +283,29 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                         child: Container(
                             height: 80,
                             decoration:BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey.shade800   // dark mode border
+                                    : Colors.grey.shade300,
+                                width: 1,
+                              ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade400,
+                                  color: Theme.of(context).shadowColor.withOpacity(0.2),
                                   blurRadius: 3,
                                   offset: Offset(0, 0),
-                                ),
-
+                                )
                               ],
-                              border: Border.all(
-                                color: Colors.grey.shade400, // Border color
-                                width: 1,           // Border thickness
-                              ),
-
 
 
                             ) ,
                             child: Column(
                               children: [
                                 SizedBox(height: 10,),
-                                Text("6 months", style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),),
-                                Text("Learning", style: TextStyle(
-                                  fontSize: 14,
-                                ),),
+                                Text("6 months", style: Theme.of(context).textTheme.bodyLarge,),
+                                Text("Learning", style: Theme.of(context).textTheme.bodyLarge,),
                                 SizedBox(height: 10,),
                               ],
                             )
@@ -312,34 +316,29 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                         child: Container(
                             height: 80,
                             decoration:BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey.shade800   // dark mode border
+                                    : Colors.grey.shade300,
+                                width: 1,
+                              ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.shade400,
+                                  color: Theme.of(context).shadowColor.withOpacity(0.2),
                                   blurRadius: 3,
                                   offset: Offset(0, 0),
-                                ),
-
+                                )
                               ],
-                              border: Border.all(
-                                color: Colors.grey.shade400, // Border color
-                                width: 1,           // Border thickness
-                              ),
-
 
 
                             ) ,
                             child: Column(
                               children: [
                                 SizedBox(height: 10,),
-                                Text("5 +", style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),),
-                                Text("Skills", style: TextStyle(
-                                  fontSize: 14,
-                                ),),
+                                Text("5 +", style: Theme.of(context).textTheme.bodyLarge,),
+                                Text("Skills", style: Theme.of(context).textTheme.bodyLarge,),
                                 SizedBox(height: 10,),
                               ],
                             )
@@ -351,25 +350,26 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
               ),
 
               SizedBox(height: 20,),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+              SizedBox(
+                height: 350,
+                width: double.infinity,
                 child: Container(
-                  height: 300,
-                  width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color: Colors.grey.shade400,
-                      width: 0.7,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade800   // dark mode border
+                          : Colors.grey.shade300,
+                      width: 1,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.shade400,
-                        blurRadius: 1,
+                        color: Theme.of(context).shadowColor.withOpacity(0.2),
+                        blurRadius: 3,
                         offset: Offset(0, 0),
                       )
-                    ]
+                    ],
 
                   ),
                   child: Column(
@@ -380,18 +380,13 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       SizedBox(height: 10,),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text("About Me", style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),),
+                        child: Text("About Me", style: Theme.of(context).textTheme.bodyLarge,),
                       ),
                       SizedBox(height: 5,),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text('A motivated Flutter developer eager to transform ideas into beautiful and functional mobile applications. With 6 months of dedicated learning and practice, I have developed several projects that reflect my passion for coding and UI/UX design. Always curious to learn, grow, and adapt to new technologies, I aim to contribute to impactful projects and start my professional journey in the tech industry.',
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                       SizedBox(height: 10,),
