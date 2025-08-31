@@ -1,15 +1,9 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'Screen/NavigationBar.dart';
 
-void main(){
+void main() {
   runApp(MainScreen());
 }
-
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -19,12 +13,36 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  ThemeMode _themeMode = ThemeMode.light; // default light
+
+  void toggleTheme() {
+    setState(() {
+      _themeMode =
+      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Navigationbar(),
 
+      // Light and Dark Themes
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.black,
+      ),
+      themeMode: _themeMode, // 👈 yahan se control ho raha hai
+
+      home: Navigationbar(
+        onToggleTheme: toggleTheme, // pass toggle function
+      ),
     );
   }
 }

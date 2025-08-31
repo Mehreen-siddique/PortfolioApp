@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:portfolioapp/Screen/ProjectScreen.dart';
 import 'package:portfolioapp/Screen/SkillsScreen.dart';
+import 'package:portfolioapp/Screen/contactScreen.dart';
 import 'package:portfolioapp/Screen/profileScreen.dart';
 
 class Navigationbar extends StatefulWidget {
-  const Navigationbar({super.key});
+  final VoidCallback onToggleTheme;
+  const Navigationbar({super.key, required this.onToggleTheme});
 
   @override
   State<Navigationbar> createState() => _NavigationbarState();
@@ -13,22 +15,6 @@ class Navigationbar extends StatefulWidget {
 
 class _NavigationbarState extends State<Navigationbar> {
 
-  int selectedIndex= 0;
-
-  final List<Widget> screens = [
-    HomeScreen(),
-    // ProjectScreen(),
-    // SkillScreen(),
-    // ContactScreen(),
-  ] ;
-
-  void onItemTapped(int index){
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,10 +22,10 @@ class _NavigationbarState extends State<Navigationbar> {
       child: Scaffold(
       body: TabBarView(
           children:[
-          HomeScreen(),
+          HomeScreen(onToggleTheme: widget.onToggleTheme),
             Projectscreen(),
             Skillsscreen(),
-          // ContactScreen(),
+            Contactscreen(),
         ]
       ),
         bottomNavigationBar: Container(

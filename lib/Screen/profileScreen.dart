@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback onToggleTheme;
+  const HomeScreen({super.key, required this.onToggleTheme});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateMixin{
+  bool isDark = false;
+
 
   Widget buildProfileAvatarWithCamera() {
     return Stack(
@@ -52,9 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         body:
         SingleChildScrollView(
@@ -83,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(
                             color: Colors.grey.shade400, // Border color
@@ -97,14 +99,39 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           ]
                       ),
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.light_mode_outlined),
-                    ),
+                      child: GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isDark = !isDark;
+                          });
+                          widget.onToggleTheme();
+                        },
+                        child: AnimatedRotation(turns: isDark? 1: 0,
+
+                            duration: Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                        child: AnimatedSwitcher(duration: Duration(milliseconds: 500),
+                            transitionBuilder: (Widget child, Animation<double> animation) {
+                              return ScaleTransition(scale: animation, child: child);
+                            },
+                          child: Icon(
+                          isDark ? Icons.dark_mode : Icons.light_mode_outlined,
+                          key: ValueKey<bool>(isDark),
+                          color: isDark ? Colors.white : Colors.black,
+                          size: 28,
+                        ),
+
+
+                        ),
+                        )
+                      ),
                     )
                     ),
                   ],
                 ),
               ),
               buildProfileAvatarWithCamera(),
+
              SizedBox(height: 10),
              Column(
                crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,71 +157,73 @@ class _HomeScreenState extends State<HomeScreen> {
              ),
               SizedBox(height: 20,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-          
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration:BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.grey.shade400, // Border color
-                        width: 1,           // Border thickness
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade400,
-                          blurRadius: 1,
-                          offset: Offset(0, 0),
-                        )
-                      ]
-          
-          
-                    ) ,
-                    child: IconButton(
-                      icon: FaIcon(FontAwesomeIcons.github,
-                      color: Colors.black,
-                      ),
-                      onPressed: () {
-                        // launchUrl(Uri.parse("https://github.com/yourusername"));
-                      },
-                    ),
-                  ),
-                  SizedBox(width: 20,),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration:BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.grey.shade400, // Border color
-                          width: 1,           // Border thickness
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration:BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.grey.shade400, // Border color
+                            width: 1,           // Border thickness
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
+                              blurRadius: 1,
+                              offset: Offset(0, 0),
+                            )
+                          ]
+
+
+                      ) ,
+                      child: IconButton(
+                        icon: FaIcon(FontAwesomeIcons.github,
+                          color: Colors.black,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade400,
-                            blurRadius: 1,
-                            offset: Offset(0, 0),
-                          )
-                        ]
-          
-          
-                    ) ,
-                    child: IconButton(
-                      icon: FaIcon(FontAwesomeIcons.linkedin,
-                      color: Colors.black,
+                        onPressed: () {
+                           launchUrl(Uri.parse("https://github.com/Mehreen-Siddique"));
+                        },
                       ),
-                      onPressed: () {
-                        // launchUrl(Uri.parse("https://github.com/yourusername"));
-                      },
                     ),
-                  ),
-          
-              ]
-                  ),
+                    SizedBox(width: 20,),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration:BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.grey.shade400, // Border color
+                            width: 1,           // Border thickness
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade400,
+                              blurRadius: 1,
+                              offset: Offset(0, 0),
+                            )
+                          ]
+
+
+                      ) ,
+                      child: IconButton(
+                        icon: FaIcon(FontAwesomeIcons.linkedin,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                           launchUrl(Uri.parse("https://www.linkedin.com/in/mehreen-siddique/"));
+                        },
+                      ),
+                    ),
+
+                  ]
+              ),
+
+
               SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -320,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ]
                 ),
               ),
-          
+
               SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -341,7 +370,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         offset: Offset(0, 0),
                       )
                     ]
-          
+
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -371,11 +400,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(height: 20,),
-          
+
             ],
           ),
-        ),
-      ),
+        )
     );
   }
 }
