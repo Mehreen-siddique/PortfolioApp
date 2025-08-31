@@ -83,9 +83,9 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       height: 140,
                       width: 140,
                       decoration: BoxDecoration(
-
                         color: Theme.of(context).cardColor,
-                        borderRadius: BorderRadius.circular(100)
+                        borderRadius: BorderRadius.circular(100),
+
                       ),
                     )),
                     Positioned(
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
            Padding(
              padding: const EdgeInsets.only(left: 16, right: 16),
              child: Text('Dedicated to transforming ideas into elegant mobile experiences. Skilled in Flutter development, with an eye for design and a drive for performance.',
-               style: Theme.of(context).textTheme.bodyLarge,
+               style: Theme.of(context).textTheme.bodyMedium,
           textAlign: TextAlign.center,
              ),
            )
@@ -269,9 +269,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                             children: [
                               SizedBox(height: 10,),
                               Text("15 +", style: Theme.of(context).textTheme.bodyLarge,),
-                              Text("Projects", style: TextStyle(
-                                fontSize: 14,
-                              ),),
+                              Text("Projects", style: Theme.of(context).textTheme.bodyMedium,),
                               SizedBox(height: 10,),
                             ],
                           )
@@ -305,7 +303,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                               children: [
                                 SizedBox(height: 10,),
                                 Text("6 months", style: Theme.of(context).textTheme.bodyLarge,),
-                                Text("Learning", style: Theme.of(context).textTheme.bodyLarge,),
+                                Text("Learning", style: Theme.of(context).textTheme.bodyMedium,),
                                 SizedBox(height: 10,),
                               ],
                             )
@@ -338,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                               children: [
                                 SizedBox(height: 10,),
                                 Text("5 +", style: Theme.of(context).textTheme.bodyLarge,),
-                                Text("Skills", style: Theme.of(context).textTheme.bodyLarge,),
+                                Text("Skills", style: Theme.of(context).textTheme.bodyMedium,),
                                 SizedBox(height: 10,),
                               ],
                             )
@@ -350,10 +348,12 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
               ),
 
               SizedBox(height: 20,),
-              SizedBox(
-                height: 350,
-                width: double.infinity,
+              Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Container(
+                  padding: EdgeInsets.all(10),
+                  height: 320,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(10),
@@ -386,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text('A motivated Flutter developer eager to transform ideas into beautiful and functional mobile applications. With 6 months of dedicated learning and practice, I have developed several projects that reflect my passion for coding and UI/UX design. Always curious to learn, grow, and adapt to new technologies, I aim to contribute to impactful projects and start my professional journey in the tech industry.',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
                       SizedBox(height: 10,),
