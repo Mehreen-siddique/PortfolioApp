@@ -8,20 +8,60 @@ class Projectscreen extends StatefulWidget {
   State<Projectscreen> createState() => _ProjectscreenState();
 }
 
-class _ProjectscreenState extends State<Projectscreen> {
+class _ProjectscreenState extends State<Projectscreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
 
-  Widget buildCard(){
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 600),
+      vsync: this,
+    );
+
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.1), end: Offset.zero).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+        );
+
+    _controller.forward(); // screen load hone pr animation trigger
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Widget buildProjectBox() {
     return ListView.builder(
-        itemCount: 1,
-        itemBuilder: (context, index){
-          return Card(
-            color: Colors.white,
-            elevation: 6, // gives shadow
-            shadowColor: Colors.grey[400],
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            margin: const EdgeInsets.all(16),
-            child: Padding(
+      itemCount: 1,
+      itemBuilder: (context, index) {
+        return SlideTransition(
+          position: _slideAnimation,
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 600),
+            opacity: 1,
+            child: Container(
+              margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: Theme.of(context).dividerColor,
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).shadowColor.withOpacity(0.1),
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,24 +79,24 @@ class _ProjectscreenState extends State<Projectscreen> {
                   const SizedBox(height: 12),
 
                   // Project Name
-                  const Text(
+                  Text(
                     "Weather App",
-                    style: TextStyle(
-                      fontSize: 20,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
 
-                  // Project Description
                   const SizedBox(height: 6),
-                  const Text(
+
+                  // Project Description
+                  Text(
                     "A simple weather app built with Flutter & OpenWeather API.",
-                    style: TextStyle(color: Colors.black54),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
 
                   const SizedBox(height: 12),
 
-                  // Technologies (Chips with grey border)
+                  // Technologies
                   Wrap(
                     spacing: 8,
                     children: [
@@ -72,49 +112,24 @@ class _ProjectscreenState extends State<Projectscreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // GitHub Button
                       Expanded(
                         child: OutlinedButton.icon(
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.grey[200],
-                            side: BorderSide(color: Colors.grey.shade400),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
                           onPressed: () {},
-                          icon: const FaIcon(FontAwesomeIcons.github, size: 18,
-                          color: Colors.black,
+                          icon: FaIcon(
+                            FontAwesomeIcons.github,
+                            size: 18,
+                            color: Theme.of(context).iconTheme.color,
                           ),
-                          label: const Text("GitHub",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-
-                          ),
+                          label: Text("GitHub",
+                              style: Theme.of(context).textTheme.bodyMedium),
                         ),
                       ),
-
                       const SizedBox(width: 12),
-
-                      // Demo Button
                       Expanded(
                         child: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
                           onPressed: () {},
-                          icon: const Icon(Icons.fullscreen,
-                              size: 18,
-                              color: Colors.white),
-                          label: const Text("Demo", style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),),
+                          icon:  Icon(Icons.fullscreen, size: 18),
+                          label: Text("Demo"),
                         ),
                       ),
                     ],
@@ -122,56 +137,57 @@ class _ProjectscreenState extends State<Projectscreen> {
                 ],
               ),
             ),
-          );
-        }
+          ),
+        );
+      },
     );
   }
+
   Widget _buildTechChip(String tech) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
-        border: Border.all(color: Colors.grey.shade400),
+        color: Theme.of(context).canvasColor,
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Theme.of(context).dividerColor,
+          width: 1,
+        ),
       ),
       child: Text(
         tech,
-        style: const TextStyle(fontSize: 12, color: Colors.black87),
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("My Projects", style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              Text(
+                "My Projects",
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              const SizedBox(height: 10),
+              Text(
+                "Here are some of my recent working and personal projects.",
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
-              SizedBox(height: 10,),
-
-              Text("Here are some of my recent working and personal projects. ", style: TextStyle(
-                fontSize: 15,
-              ),),
-              SizedBox(height: 10,),
-              Expanded(child: buildCard()),
-
+              const SizedBox(height: 10),
+              Expanded(child: buildProjectBox()),
             ],
           ),
         ),
-        ),
-      )
+      ),
     );
   }
 }

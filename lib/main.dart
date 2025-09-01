@@ -85,8 +85,8 @@ class _MyAppState extends State<MyApp> {
     cardColor: Colors.black ,
     canvasColor:Color(0xff3a3a3a),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.white70),
+      bodyLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+      bodyMedium: TextStyle(color: Colors.white70, fontSize: 16),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
