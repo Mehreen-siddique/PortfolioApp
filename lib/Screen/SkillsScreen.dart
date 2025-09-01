@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Skillsscreen extends StatefulWidget {
   const Skillsscreen({super.key});
@@ -7,176 +8,185 @@ class Skillsscreen extends StatefulWidget {
   State<Skillsscreen> createState() => _SkillsscreenState();
 }
 
-class _SkillsscreenState extends State<Skillsscreen> {
-  Widget buildSkillCard(){
-    return ListView.builder(
-      itemCount: 1,
-      itemBuilder: (context, index) {
-        return     Container(
-          height: 300,
+class _SkillsscreenState extends State<Skillsscreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..forward();
+
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Widget buildSkillCard() {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade400,
-                blurRadius: 1,
-                offset: Offset(0, 0),
-              )
-            ],
             border: Border.all(
-              color: Colors.grey.shade400, // Border color
-              width: 1,           // Border thickness
+              color: Theme.of(context).dividerColor,
+              width: 1,
             ),
           ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child:
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
                 Row(
-
-
                   children: [
                     CircleAvatar(
-                      radius: 28,
-                      backgroundColor: Colors.grey[400],
-                      child: const Icon(Icons.palette_outlined, size: 30, color: Colors.white),
+                      radius: 24,
+                      backgroundColor: Theme.of(context).canvasColor,
+                      child: Icon(Icons.palette_outlined,
+                          size: 26, color: Theme.of(context).iconTheme.color),
                     ),
-                    SizedBox(width: 10,),
-                    Text(" Design & Tools", style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),),
-
+                    const SizedBox(width: 10),
+                    Text(" Design & Tools",
+                        style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
+                const SizedBox(height: 16),
+                _buildSkillRow("Git/GitHub", 0.5),
+                _buildSkillRow("Figma", 0.7),
+                _buildSkillRow("Canva", 0.6),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
-              ),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Git/GitHub", style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(width: 155,),
-                  Text("50%",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey.shade400
-
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: LinearProgressIndicator(
-                  minHeight: 8,
-                  value: 0.5,
-                  backgroundColor: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(10),
-
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                ),
-              ),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Figma", style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(width: 155,),
-                  Text("50%",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey.shade400
-
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: LinearProgressIndicator(
-                  minHeight: 8,
-                  value: 0.5,
-                  backgroundColor: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(10),
-
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                ),
-              ),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Canva", style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(width: 155,),
-                  Text("50%",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey.shade400
-
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: LinearProgressIndicator(
-                  minHeight: 8,
-                  value: 0.5,
-                  backgroundColor: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(10),
-
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-                ),
-              ),
-
+  Widget _buildSkillRow(String skill, double progress) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(skill, style: Theme.of(context).textTheme.bodyLarge),
+              Text("${(progress * 100).toInt()}%",
+                  style: Theme.of(context).textTheme.bodyMedium),
             ],
           ),
+          const SizedBox(height: 6),
+          LinearProgressIndicator(
+            minHeight: 8,
+            value: _animation.value * progress,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ],
+      ),
+    );
+  }
 
-        );
-      }
+  Widget buildOtherSkills() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Theme.of(context).dividerColor, width: 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Other Skills",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 20),
+          GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            childAspectRatio: 1,
+            children: [
+              _buildCircularSkill("Web Optimization", 0.85, Icons.language),
+              _buildCircularSkill("Mobile Design", 0.80, Icons.phone_iphone),
+              _buildCircularSkill("Performance", 0.88, Icons.flash_on),
+              _buildCircularSkill("APIs", 0.85, Icons.storage),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCircularSkill(String title, double percent, IconData icon) {
+    final theme = Theme.of(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+      CircularPercentIndicator(
+      radius: 40,
+      lineWidth: 8,
+      percent: 0.85,
+      animation: true,
+      animationDuration: 2000, // 2 seconds
+      circularStrokeCap: CircularStrokeCap.round,
+      progressColor: Theme.of(context).progressIndicatorTheme.color,
+      backgroundColor: Theme.of(context).progressIndicatorTheme.linearTrackColor!,
+      center: Text(
+        "85%",
+        style: Theme.of(context).textTheme.bodyMedium,
+      ),
+      ),
+        const SizedBox(height: 8),
+        Icon(icon, size: 20, color: theme.iconTheme.color),
+        const SizedBox(height: 4),
+        Text(title, style: theme.textTheme.bodyMedium, textAlign: TextAlign.center),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-body: Padding(padding: EdgeInsets.all(10.0),
-child: Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Text(" Skills & Expertise", style: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    ),),
-Text("Technologies and tools | work with", style: TextStyle(
-  fontSize: 15,
-
-),),
-    SizedBox(height: 20,),
-    Expanded(child: buildSkillCard()),
-
-  ],
-),
-),
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: FadeTransition(
+            opacity: _animation,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(" Skills & Expertise",
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  Text("Technologies and tools | work with",
+                      style: Theme.of(context).textTheme.bodyMedium),
+                  const SizedBox(height: 20),
+                  buildSkillCard(),
+                  const SizedBox(height: 20),
+                  buildOtherSkills(), // Circular indicators section
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

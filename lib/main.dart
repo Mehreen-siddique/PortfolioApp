@@ -35,9 +35,31 @@ class _MyAppState extends State<MyApp> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       ),
     ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: Colors.black, // text + icon color
+        side:  BorderSide(color: Colors.grey.shade400, width: 1.5), // border color
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+    ),
+
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.black, // FAB ka main color
+      foregroundColor: Colors.white, // icon ka color
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)), // rounded button
+      ),
+      elevation: 6,
+    ),
+
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.black),
-      bodyMedium: TextStyle(color: Colors.black87),
+      bodyLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+      bodyMedium: TextStyle(color: Colors.black87, fontSize: 16),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
@@ -71,6 +93,13 @@ class _MyAppState extends State<MyApp> {
       ),
     ),
 
+
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.black, // filled progress bar ka color
+      linearTrackColor: Colors.grey.shade300, // background track
+      circularTrackColor: Colors.grey.shade300,
+    ),
+
     iconTheme: const IconThemeData(color: Colors.black),
     dividerColor: Colors.grey.shade400,
   );
@@ -91,13 +120,34 @@ class _MyAppState extends State<MyApp> {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white, // light button in dark mode
+        backgroundColor: Colors.white, // dark button in light mode
         foregroundColor: Colors.black, // text/icon color
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       ),
+    ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: Colors.black, // text + icon color
+        side: const BorderSide(color: Colors.white70, width: 1.5), // border color
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+    ),
+
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.white, // FAB ka main color
+      foregroundColor: Colors.black, // icon ka color
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)), // rounded button
+      ),
+      elevation: 6,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -118,7 +168,11 @@ class _MyAppState extends State<MyApp> {
       ),
     ),
 
-
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.white, // filled progress bar ka color
+      linearTrackColor: Color(0xff3a3a3a), // background track
+      circularTrackColor: Colors.grey.shade300,
+    ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.black,

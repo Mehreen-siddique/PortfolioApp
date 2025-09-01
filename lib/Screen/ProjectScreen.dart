@@ -13,6 +13,26 @@ class _ProjectscreenState extends State<Projectscreen>
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
 
+  // 🔹 Dummy project list (yeh baad me backend/Firebase se load hoga)
+  List<Map<String, dynamic>> projects = [
+    {
+      "title": "Weather App",
+      "description": "A simple weather app built with Flutter & OpenWeather API.",
+      "imageUrl": "https://via.placeholder.com/400x200",
+      "technologies": ["Flutter", "Dart", "REST API"],
+      "github": "https://github.com/",
+      "demo": "https://demo-link.com"
+    },
+    {
+      "title": "Portfolio Website",
+      "description": "My personal portfolio built using Flutter Web.",
+      "imageUrl": "https://via.placeholder.com/400x200",
+      "technologies": ["Flutter", "Firebase", "Hosting"],
+      "github": "https://github.com/",
+      "demo": "https://demo-link.com"
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +46,7 @@ class _ProjectscreenState extends State<Projectscreen>
           CurvedAnimation(parent: _controller, curve: Curves.easeOut),
         );
 
-    _controller.forward(); // screen load hone pr animation trigger
+    _controller.forward();
   }
 
   @override
@@ -37,8 +57,10 @@ class _ProjectscreenState extends State<Projectscreen>
 
   Widget buildProjectBox() {
     return ListView.builder(
-      itemCount: 1,
+      itemCount: projects.length, // 🔹 Dynamic count
       itemBuilder: (context, index) {
+        final project = projects[index];
+
         return SlideTransition(
           position: _slideAnimation,
           child: AnimatedOpacity(
@@ -69,7 +91,7 @@ class _ProjectscreenState extends State<Projectscreen>
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.network(
-                      "https://via.placeholder.com/400x200",
+                      project["imageUrl"],
                       height: 190,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -80,7 +102,7 @@ class _ProjectscreenState extends State<Projectscreen>
 
                   // Project Name
                   Text(
-                    "Weather App",
+                    project["title"],
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -90,7 +112,7 @@ class _ProjectscreenState extends State<Projectscreen>
 
                   // Project Description
                   Text(
-                    "A simple weather app built with Flutter & OpenWeather API.",
+                    project["description"],
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
 
@@ -99,11 +121,9 @@ class _ProjectscreenState extends State<Projectscreen>
                   // Technologies
                   Wrap(
                     spacing: 8,
-                    children: [
-                      _buildTechChip("Flutter"),
-                      _buildTechChip("Dart"),
-                      _buildTechChip("REST API"),
-                    ],
+                    children: (project["technologies"] as List<String>)
+                        .map((tech) => _buildTechChip(tech))
+                        .toList(),
                   ),
 
                   const SizedBox(height: 16),
@@ -114,7 +134,9 @@ class _ProjectscreenState extends State<Projectscreen>
                     children: [
                       Expanded(
                         child: OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            // TODO: open GitHub link
+                          },
                           icon: FaIcon(
                             FontAwesomeIcons.github,
                             size: 18,
@@ -127,9 +149,11 @@ class _ProjectscreenState extends State<Projectscreen>
                       const SizedBox(width: 12),
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: () {},
-                          icon:  Icon(Icons.fullscreen, size: 18),
-                          label: Text("Demo"),
+                          onPressed: () {
+                            // TODO: open Demo link
+                          },
+                          icon: const Icon(Icons.fullscreen, size: 18),
+                          label: const Text("Demo"),
                         ),
                       ),
                     ],
@@ -166,6 +190,16 @@ class _ProjectscreenState extends State<Projectscreen>
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // 🔹 Navigate to Add Project Screen
+            // Navigator.push(
+            //   context,
+            //   // MaterialPageRoute(builder: (context) => const AddProjectScreen()),
+            // );
+          },
+          child: const Icon(Icons.add),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -191,3 +225,5 @@ class _ProjectscreenState extends State<Projectscreen>
     );
   }
 }
+
+

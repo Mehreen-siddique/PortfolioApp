@@ -11,9 +11,9 @@ class Contactscreen extends StatefulWidget {
 class _ContactscreenState extends State<Contactscreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<Offset> _topSlide; // heading ke liye
-  late Animation<Offset> _leftSlide; // small cards ke liye
-  late Animation<Offset> _bottomSlide; // send message form ke liye
+  late Animation<Offset> _topSlide;
+  late Animation<Offset> _leftSlide;
+  late Animation<Offset> _bottomSlide;
 
   @override
   void initState() {
@@ -31,7 +31,6 @@ class _ContactscreenState extends State<Contactscreen>
     _bottomSlide = Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    // Start animation jab screen open ho
     _controller.forward();
   }
 
@@ -62,8 +61,7 @@ class _ContactscreenState extends State<Contactscreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                // 👇 Heading from Top
+                // Heading
                 SlideTransition(
                   position: _topSlide,
                   child: Column(
@@ -84,7 +82,7 @@ class _ContactscreenState extends State<Contactscreen>
                 ),
                 const SizedBox(height: 40),
 
-                // 👇 Email Card (from left)
+                // Email card
                 _buildCard(
                   animation: _leftSlide,
                   child: _contactCard(
@@ -95,7 +93,7 @@ class _ContactscreenState extends State<Contactscreen>
                 ),
                 const SizedBox(height: 20),
 
-                // 👇 Phone Card (from left)
+                // Phone card
                 _buildCard(
                   animation: _leftSlide,
                   child: _contactCard(
@@ -104,18 +102,16 @@ class _ContactscreenState extends State<Contactscreen>
                     text: "+92134567890",
                   ),
                 ),
-
                 const SizedBox(height: 20),
 
-                // 👇 Send Message Form (from bottom)
+                // Send message form
                 _buildCard(
                   animation: _bottomSlide,
                   child: _messageForm(context),
                 ),
-
                 const SizedBox(height: 20),
 
-                // 👇 Socials (from left)
+                // Socials
                 _buildCard(
                   animation: _leftSlide,
                   child: _socials(context),
@@ -128,12 +124,11 @@ class _ContactscreenState extends State<Contactscreen>
     );
   }
 
-  // 🔹 Helper Widgets 🔹
+  // Contact cards
   Widget _contactCard(BuildContext context,
       {required IconData icon, required String text}) {
     return Container(
-      height: 80,
-      width: double.infinity,
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -145,30 +140,29 @@ class _ContactscreenState extends State<Contactscreen>
           )
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-              ),
-              child: Icon(icon, size: 20, color: Theme.of(context).iconTheme.color),
+      child: Row(
+        children: [
+          Container(
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: Theme.of(context).canvasColor,
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
             ),
-            const SizedBox(width: 10),
-            Text(text, style: Theme.of(context).textTheme.bodyMedium),
-          ],
-        ),
+            child: Icon(icon, size: 20, color: Theme.of(context).iconTheme.color),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(text, style: Theme.of(context).textTheme.bodyMedium),
+          ),
+        ],
       ),
     );
   }
 
+  // Send message form
   Widget _messageForm(BuildContext context) {
     return Container(
-      height: 430,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -185,6 +179,7 @@ class _ContactscreenState extends State<Contactscreen>
         padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min, // 👈 auto adjust height
           children: [
             Text("Send A Message",
                 style: Theme.of(context)
@@ -192,16 +187,24 @@ class _ContactscreenState extends State<Contactscreen>
                     .bodyLarge
                     ?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
-            TextFormField(decoration: const InputDecoration(hintText: " Your name")),
+            TextFormField(decoration:  InputDecoration(hintText: " Your name",
+              hintStyle: Theme.of(context).textTheme.bodyMedium,
+            )),
             const SizedBox(height: 10),
-            TextFormField(decoration: const InputDecoration(hintText: " Your email")),
+            TextFormField(decoration:  InputDecoration(hintText: " Your email",
+              hintStyle: Theme.of(context).textTheme.bodyMedium,
+            )),
             const SizedBox(height: 10),
             TextFormField(
-              decoration: const InputDecoration(hintText: " Your message"),
+              decoration:  InputDecoration(hintText: " Your message",
+              hintStyle: Theme.of(context).textTheme.bodyMedium,
+              ),
               maxLines: 5,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
                 onPressed: () {},
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -210,16 +213,18 @@ class _ContactscreenState extends State<Contactscreen>
                     SizedBox(width: 10),
                     Text("Send"),
                   ],
-                ))
+                ),
+              ),
+            )
           ],
         ),
       ),
     );
   }
 
+  // Social links
   Widget _socials(BuildContext context) {
     return Container(
-      height: 150,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -270,7 +275,7 @@ class _ContactscreenState extends State<Contactscreen>
 
   Widget _socialCard(BuildContext context, IconData icon, String label) {
     return Container(
-      height: 60,
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -282,15 +287,12 @@ class _ContactscreenState extends State<Contactscreen>
           )
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            FaIcon(icon, size: 20, color: Theme.of(context).iconTheme.color),
-            const SizedBox(width: 10),
-            Text(label, style: Theme.of(context).textTheme.bodyMedium),
-          ],
-        ),
+      child: Row(
+        children: [
+          FaIcon(icon, size: 20, color: Theme.of(context).iconTheme.color),
+          const SizedBox(width: 10),
+          Text(label, style: Theme.of(context).textTheme.bodyMedium),
+        ],
       ),
     );
   }

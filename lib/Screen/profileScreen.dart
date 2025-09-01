@@ -63,28 +63,7 @@ class _HomeScreenState extends State<HomeScreen>
           child: CircleAvatar(
             backgroundColor: Colors.grey[300],
             radius: 60,
-            backgroundImage: AssetImage('assets/images/profile.jpg'),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              shape: BoxShape.circle,
-            ),
-            padding: EdgeInsets.all(6),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.camera_alt,
-                color: Theme.of(context).iconTheme.color,
-                size: 20,
-              ),
-            ),
+            backgroundImage: AssetImage('images/profileImg.jpg'),
           ),
         ),
       ],
@@ -323,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen>
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: Container(
         padding: EdgeInsets.all(10),
-        height: 320,
+        // height: 320,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
