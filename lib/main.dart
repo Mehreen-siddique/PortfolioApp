@@ -24,6 +24,17 @@ class _MyAppState extends State<MyApp> {
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.white,
+    canvasColor: Colors.grey.shade300,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black, // dark button in light mode
+        foregroundColor: Colors.white, // text/icon color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      ),
+    ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.black),
       bodyMedium: TextStyle(color: Colors.black87),
@@ -42,6 +53,24 @@ class _MyAppState extends State<MyApp> {
       ),
     ),
 
+    inputDecorationTheme: InputDecorationTheme(
+      filled: false, // background off in light
+      hintStyle: TextStyle(color: Colors.grey.shade600),
+      labelStyle: TextStyle(color: Colors.black87),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.grey.shade400),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black, width: 1.5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+
     iconTheme: const IconThemeData(color: Colors.black),
     dividerColor: Colors.grey.shade400,
   );
@@ -53,11 +82,44 @@ class _MyAppState extends State<MyApp> {
   final ThemeData _darkTheme = ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.black,
-    cardColor: const Color(0xFF1E1E1E),
+    cardColor: Colors.black ,
+    canvasColor:Color(0xff3a3a3a),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.white),
       bodyMedium: TextStyle(color: Colors.white70),
     ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white, // light button in dark mode
+        foregroundColor: Colors.black, // text/icon color
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.black,
+      hintStyle: TextStyle(color: Colors.grey.shade400),
+      labelStyle: TextStyle(color: Colors.white70),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white30),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white, width: 1.5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.red),
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+
+
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.black,
       selectedItemColor: Colors.white,
