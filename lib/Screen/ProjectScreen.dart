@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolioapp/Screen/AddProjects.dart';
 
 class Projectscreen extends StatefulWidget {
   const Projectscreen({super.key});
@@ -193,10 +194,10 @@ class _ProjectscreenState extends State<Projectscreen>
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // 🔹 Navigate to Add Project Screen
-            // Navigator.push(
-            //   context,
-            //   // MaterialPageRoute(builder: (context) => const AddProjectScreen()),
-            // );
+            Navigator.push(
+              context,
+               MaterialPageRoute(builder: (context) => const AddProjectScreen()),
+            );
           },
           child: const Icon(Icons.add),
         ),
